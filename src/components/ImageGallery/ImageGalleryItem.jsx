@@ -1,21 +1,16 @@
-import { createPortal } from 'react-dom';
 import s from './ImageGalleryItem.module.css'
 
+
 const ImageGalleryItem = ({searchRequest}) =>{
-    // searchRequest.map(img=>{
-    //     console.log(img)
-    // })
     return (
         searchRequest.hits.map(el=> {
-            <li className={s.item}>
-                <img className={s.image} src={el.webformatURL} alt="" />
+            return (
+                <li className={s.item} key={el.id}>
+                <img className={s.image} src={el.webformatURL} alt={el.tags} />
             </li>
+            )
             })
     )
-            
-        
-        
-        
 }
 
 export default ImageGalleryItem;

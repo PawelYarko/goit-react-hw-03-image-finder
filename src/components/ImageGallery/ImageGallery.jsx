@@ -6,14 +6,16 @@ export default class App extends React.Component{
 
     state = {
         searchRequest: null,
-        error:
+        error: null,
+        status: 'idle'
     }
 
     componentDidUpdate(pervProps, pervState){
         const prevName = pervProps.imageName;
         const nextName = this.props.imageName;
         if(nextName !== prevName){
-          fetch(`https://pixabay.com/api/?key=26762966-8ed2dcb76b4efb10f9cc7c58f&q=${this.props.imageName}&image_type=photo`)
+            this.setState({status: 'pending'})
+          fetch(`https://pixabay.com/api/?key=26762966-8ed2dcb76b4efb10f9cc7c58f&q=${this.props.imageName}&image_type=photo&per_page=12`)
           .then(response =>{
               if(response.ok){
                 return response.json();
@@ -24,19 +26,34 @@ export default class App extends React.Component{
           })
           .then(searchRequest => {
               if(searchRequest){
-                this.setState({searchRequest});
+                this.setState({searchRequest, status:'resolved'});
               }
           })
-          .catch(error => this.state({error}));
+          .catch(error => this.state({error, status: 'rejected'}));
         }
       }  
 
 
     render(){
-        const {searchRequest} = this.state;
-      return (
-        <ul className={s.gallery}>
-         <ImageGalleryItem searchRequest={searchRequest}/>   
-        </ul>
-    )} 
+        const {searchRequest, status, error} = this.state;
+        if(status === 'idle'){
+            return <div>Введите запрос в поле ввода</div>
+        }
+
+        if(status === 'pending'){
+            return <div>Загрузка...</div>
+        }
+
+        if(status === 'rejected'){
+        return <h1>{error.message}</h1>
+        }
+
+        if(status === 'resolved'){
+            return (
+                <ul className={s.gallery}>
+                    <ImageGalleryItem searchRequest={searchRequest}/>   
+                </ul>
+            )
+        }
+} 
 }
