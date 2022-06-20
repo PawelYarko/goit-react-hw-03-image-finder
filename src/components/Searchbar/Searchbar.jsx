@@ -1,8 +1,9 @@
 import React from 'react';
+import IconSearch from './IconSearch/IconSearch'
 import s from "./Searchbar.module.css"
 
 
-export default class App extends React.Component {
+export default class Searchbar extends React.Component {
     state = {
         inputValue: '',
     }
@@ -30,6 +31,7 @@ export default class App extends React.Component {
             <header className={s.searchbar}>
                 <form className={s.form} onSubmit={this.handleFormSubmit}>
                     <button type="submit" className={s.button}>
+                    <IconSearch/>
                     <span className={s.label}>Search</span>
                     </button>
     

@@ -1,6 +1,8 @@
 import React from 'react';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Searchbar from '../Searchbar/Searchbar';
 import ImageGallery from '../ImageGallery/ImageGallery';
+import s from './App.module.css'
 
 
 export default class App extends React.Component{
@@ -14,15 +16,10 @@ export default class App extends React.Component{
 
   render(){
     
-
     return (
-      <div>
+      <div className={s.container}>
       <Searchbar onSubmit={this.handleFormSubmit}/>
-        <ImageGallery imageName={this.state.imageName}/>
-        {/*  <ImageGalleryItem/>
-           <Loader/>
-             <Button/>
-             <Modal/> */}
+      <ImageGallery imageName={this.state.imageName}/>
       </div>
     );
   }
