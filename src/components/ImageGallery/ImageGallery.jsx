@@ -4,7 +4,6 @@ import Modal from 'components/Modal/Modal';
 import Button from 'components/Button/Button';
 import Loader from '../Loader/Loader';
 import fetchRequest from '../../service/fetchRequest';
-import SkeletonCard from '../SkeletonCard/SkeletonCard';
 import s from './ImageGallery.module.css';
 
 export default class ImageGallery extends React.Component {
@@ -86,7 +85,6 @@ export default class ImageGallery extends React.Component {
           <div className={s.content}>
             
             <ul className={s.gallery} onClick={this.openModal}>
-              {/* {status === 'pending' && <SkeletonCard/>} */}
               <ImageGalleryItem searchRequest={searchRequest} />
               {showModal && (
                 <Modal
